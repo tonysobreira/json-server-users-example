@@ -14,6 +14,10 @@ interface UserListProps {
 }
 
 const UserList: React.FC<UserListProps> = ({ users, name }) => {
+  const deleteUser = (id: number) => {
+    fetch(`http://localhost:8000/users/${id}`, { method: "DELETE" });
+  };
+
   return (
     <>
       <section>
@@ -27,6 +31,7 @@ const UserList: React.FC<UserListProps> = ({ users, name }) => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Details</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -44,6 +49,10 @@ const UserList: React.FC<UserListProps> = ({ users, name }) => {
                     <Link to={`/users/${user.id}`}>
                       <button>View full details</button>
                     </Link>
+                  </td>
+
+                  <td>
+                    <button onClick={() => deleteUser(user.id)}>Delete</button>
                   </td>
                 </tr>
               ))}
